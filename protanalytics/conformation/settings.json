@@ -1,0 +1,24 @@
+{
+    
+    "residues": ["GLY","ALA","VAL","LEU","ILE","MET","PHE","TRP","PRO","SER","THR","CYS","TYR","ASN","GLN","ASP","GLU","LYS","ARG","HIS"],
+    "secondary_structures": ["alpha-helix", "beta-sheet", "loop"],
+
+    "simple_describe":          true,
+    "angle_correlations":       true,
+    "parameter_sample_counts":  true,
+
+    "root_dir":         "",    
+    "logs_dir":         "logs/",
+    "results_dir":      "output/results/",
+    "stats_dir":        "output/stats/",
+    "plots_dir":        "output/plots/",
+    "conformations_dir":    "conformations/raw/",
+    "filtered_dir":         "conformations/filtered/",
+
+    
+    "angle_logarithmic_modifier":       1.1,
+    "angle_minimum_std":                70,
+    "dbscan_modifier":                  0.5,
+
+    "grouping_parameters": [["SecStruc", "Front", "Back"]]
+}
