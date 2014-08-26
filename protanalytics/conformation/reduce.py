@@ -14,11 +14,13 @@ def read_results_data(residue_name, parameter):
 
 def analyse_group(df):
   z_matrix = df.iloc[:,8:]
-  means = z_matrix.mean(axis=0)
-  stds = z_matrix.std(axis=0)
+  means = z_matrix.mean(axis=0, skipna=False, level=None, numeric_only=None)
+  medians = z_matrix.median(axis=0, skipna=False, level=None, numeric_only=None)
+  kurtoses = z_matrix.kurt(axis=0, numeric_only=None)
+  stds = z_matrix.std(axis=0, skipna=False, level=None, numeric_only=None)
   df = df.sort("Cluster KDE Score", ascending=False)
   best = df.iloc[0]
-  return np.concatenate([best.values, means.values, stds.values, [len(df)]])
+  return np.concatenate([best.values, means.values, medians.values, kurtoses.values, stds.values, [len(df)]])
   
 
 for res in residues:
@@ -39,6 +41,8 @@ for res in residues:
     output = open(results_dir + "-".join(param) + "/" + res + "-reduced.csv", "w")
     output.write(",".join(all_data.columns) + ",")
     output.write(",".join(map(lambda x : x + "-mean", all_data.columns[8:])) + ",")
+    output.write(",".join(map(lambda x : x + "-median", all_data.columns[8:])) + ",")
+    output.write(",".join(map(lambda x : x + "-kurt", all_data.columns[8:])) + ",")
     output.write(",".join(map(lambda x : x + "-std", all_data.columns[8:])) + ",Samples In Cluster\n")
 
 #    to get the necessary stats    
