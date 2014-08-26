@@ -1,6 +1,8 @@
 import pandas as pd 
 import numpy as np 
 import json, sys
+from auxiliary import *
+
 
 globals().update(json.load(open("settings.json")))
 
@@ -23,10 +25,16 @@ for res in residues:
   for param in grouping_parameters:
     print("Current working residue : " + res + " " + str(param))
     try:
-      all_data = read_conformation_data(res, param)
+      all_data = read_results_data(res, param)
     except:
       print(res + " has no results file.\n")
       continue
+
+    metadata = all_data.iloc[:,:8]
+    sin_cos_matrix = all_data.iloc[:,8:]
+    radian_matrix = sin_cos_matrix_to_radian_matrix(sin_cos_matrix)
+    angle_matrix = radian_matrix.applymap(np.degrees)
+    all_data = pd.concat([metadata, angle_matrix], axis=1, join='outer', join_axes=None, ignore_index=False, keys=None, levels=None, names=None, verify_integrity=True)
 
     output = open(results_dir + "-".join(param) + "/" + res + "-reduced.csv", "w")
     output.write(",".join(all_data.columns) + ",")

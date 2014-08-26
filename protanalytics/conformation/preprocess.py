@@ -22,7 +22,8 @@ def filter_conformations():
 
     metadata = all_data.ix[:,:5]
     z_matrix = all_data.iloc[:,5:]
-    z_sin_cos_matrix = z_angle_matrix_to_z_sin_cos_matrix(z_matrix)
+    z_matrix = z_matrix.applymap(np.radians)
+    z_sin_cos_matrix = radian_matrix_to_sin_cos_matrix(z_matrix)
     filtered_matrix = pd.concat([metadata, z_sin_cos_matrix], axis=1, join='outer', join_axes=None, ignore_index=False,
          keys=None, levels=None, names=None, verify_integrity=True)
 
