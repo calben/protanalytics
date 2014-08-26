@@ -5,8 +5,8 @@ import json, sys
 globals().update(json.load(open("settings.json")))
 
 
-def read_conformation_data(residue_name, parameter):
-  print results_dir + "-".join(parameter) + "/" + res + "-scores--full.csv"
+def read_results_data(residue_name, parameter):
+  print(results_dir + "-".join(parameter) + "/" + res + "-scores--full.csv")
   return pd.read_csv(results_dir + "-".join(parameter) + "/" + res + "-scores--full.csv")
 
 

@@ -27,18 +27,20 @@ def base_analytics(all_data, z_matrix, grouping_parameters):
     samples_per_group.to_csv(logs_dir + res + "--parameter-sample-counts.csv")
 
 
+def make_dirs_for_grouping(results_dir, grouping_parameters):
+  for parameter in grouping_parameters:
+    if not os.path.exists(results_dir + "-".join(parameter) + "/"):
+      os.makedirs(results_dir + "-".join(parameter) + "/")
+    
+
 globals().update(json.load(open("settings.json")))  
 log = open(logs_dir + ('{0:%Y-%m-%d %Hh %Mm}'.format(datetime.datetime.now())) + ".log", "w")
 
 check_directories([logs_dir, results_dir, stats_dir, plots_dir])
+make_dirs_for_grouping(results_dir, grouping_parameters)
 overview_stats = open(stats_dir + "overview.csv", "w")
 
 
-#preparatory
-for parameter in grouping_parameters:
-  if not os.path.exists(results_dir + "-".join(parameter) + "/"):
-    os.makedirs(results_dir + "-".join(parameter) + "/")
-    
 overview_stats.write("residue,kde_bandwidth,dpgmm_epsilon,dpgmm_cluster_count,affinity_cluster_count,kmeans_cluster_count\n")
 
 for res in residues:
@@ -105,9 +107,9 @@ for res in residues:
 #      kmeans.fit_predict(frame.iloc[:,5:].values)
       kde.fit(frame.iloc[:,6:])
 #      dpgmm.fit(frame.iloc[:,6:])
-      frame.insert(5, "Cluster KDE Score", kde.score_samples(frame.iloc[:,6:].values))
+      frame.insert(6, "Cluster KDE Score", kde.score_samples(frame.iloc[:,6:].values))
 #      frame.insert(6, "KMean Cluster", kmeans.labels_)
-      frame.insert(7, "DBSCAN Cluster", dbscan.labels_)
+      frame.insert(6, "DBSCAN Cluster", dbscan.labels_)
 
       # frame.to_csv(results_dir + "-".join(parameter) + "/" + res + "-scores--" + "-".join(map(str, key)) + ".csv", index = False)
       results.append(frame)

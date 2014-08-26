@@ -22,14 +22,8 @@ def filter_conformations():
 
     metadata = all_data.ix[:,:5]
     z_matrix = all_data.iloc[:,5:]
-    columns_to_keep = map(lambda x : True if x > angle_minimum_std else False, z_matrix.apply(np.std).values)
-
-    z_sin_matrix = z_matrix.apply(np.sin)
-    z_sin_matrix.columns = map(lambda x : x + "--SIN", z_matrix.columns)
-    z_cos_matrix = z_matrix.apply(np.cos)
-    z_cos_matrix.columns = map(lambda x : x + "--COS", z_matrix.columns)
-
-    filtered_matrix = pd.concat([metadata, z_sin_matrix, z_cos_matrix], axis=1, join='outer', join_axes=None, ignore_index=False,
+    z_sin_cos_matrix = z_angle_matrix_to_z_sin_cos_matrix(z_matrix)
+    filtered_matrix = pd.concat([metadata, z_sin_cos_matrix], axis=1, join='outer', join_axes=None, ignore_index=False,
          keys=None, levels=None, names=None, verify_integrity=True)
 
     filtered_matrix.to_csv(filtered_dir + res + ".csv", index = True, index_label = "Label")
