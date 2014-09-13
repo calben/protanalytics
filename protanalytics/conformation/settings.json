@@ -18,7 +18,7 @@
     
     "angle_logarithmic_modifier":       1.1,
     "angle_minimum_std":                70,
-    "dbscan_modifier":                  0.5,
+    "dbscan_modifier":                  0.1,
 
-    "grouping_parameters": [["SecStruc", "Front", "Back"]]
+    "grouping_parameters": [["SecStruc"], ["SecStruc", "Front"], ["SecStruc", "Back"], ["SecStruc", "Front", "Back"]]
 }
