@@ -20,5 +20,8 @@
     "angle_minimum_std":                70,
     "dbscan_modifier":                  0.1,
 
-    "grouping_parameters": [["SecStruc"], ["SecStruc", "Front"], ["SecStruc", "Back"], ["SecStruc", "Front", "Back"]]
+    "full_set_grouping_parameters (FOR NOTES)": [["SecStruc"], ["SecStruc", "Front"], ["SecStruc", "Back"], ["SecStruc", "Front", "Back"]],
+
+
+    "grouping_parameters": [["SecStruc"]]
 }

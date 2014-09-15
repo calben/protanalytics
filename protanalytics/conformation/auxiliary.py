@@ -33,6 +33,10 @@ def sin_cos_matrix_to_degrees_matrix(sin_cos_matrix):
   return sin_cos_matrix_to_radian_matrix(sin_cos_matrix).applymap(np.degrees)
 
 
+def sin_cos_series_to_degrees_series(sin_cos_series):
+  return sin_cos_matrix_to_degrees_matrix(pd.DataFrame(sin_cos_series).transpose())
+
+
 def plot_angle_densities_to_file(res):
   fig, axis = plt.subplots(1)
   angle_matrix.plot(kind="kde")
