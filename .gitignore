@@ -1,3 +1,4 @@
 protanalytics/conformation/data/*
 protanalytics/conformation/conformations/*
 protanalytics/conformation/output/*
+*.pyc
